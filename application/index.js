@@ -12,7 +12,7 @@ function templateHTML(title, list, description, control) {
         <meta charset="utf-8">
     </head>
     <body>
-        <h1><a href="index.html">WEB</a></h1>
+        <h1><a href="/">WEB</a></h1>
         ${list}
         ${control}
         <h2>${title}</h2>
@@ -26,7 +26,7 @@ function templateList(filelist) {
     var list = '<ul>';
 
     for (var i = 0; i < filelist.length; i++) {
-        list += `<li><a href="?/id=${filelist[i]}">${filelist[i]}</a></li>`;
+        list += `<li><a href="/?id=${filelist[i]}">${filelist[i]}</a></li>`;
     }
     list += '</ul>';
 
@@ -143,4 +143,4 @@ var app = http.createServer((request, response) => {
         response.end('Not found');
     }
 });
-app.listen(8080);
+app.listen(3000);
