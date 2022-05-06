@@ -72,7 +72,7 @@ var app = http.createServer((request, response) => {
             response.writeHead(200);
             response.end(template);
         });
-    } else if (pathname === '/create-process') {
+    } else if (pathname === '/create_process') {
         var body = '';
 
         request.on('data', (data) => {
@@ -118,7 +118,7 @@ var app = http.createServer((request, response) => {
                 response.end(template);
             });
         });
-    } else if (pathname === '/update-process') {
+    } else if (pathname === '/update_process') {
         var body = '';
 
         request.on('data', (data) => {
