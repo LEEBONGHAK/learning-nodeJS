@@ -94,7 +94,7 @@ var app = http.createServer((request, response) => {
             });
         });
     } else if (pathname === '/update') {
-        fs.readdirupdate =('./data', (err, filelist) => {
+        fs.readdir('./data', (err, filelist) => {
             fs.readFile(`data/${queryData.id}`, 'utf8', (error, description) => {
                 var title = queryData.id;
                 var list = templateList(filelist);
