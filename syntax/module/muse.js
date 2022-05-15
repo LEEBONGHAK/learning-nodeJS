@@ -1,8 +1,4 @@
-var M = {
-	v: 'v',
-	f: function() {
-		console.log(this.v);
-	}
-}
+var part = require('./muse.js');
 
-module.exports = M;
+console.log(part);	// { v: 'v', f: [Function: f] }
+part.f();	// v
