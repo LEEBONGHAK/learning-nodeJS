@@ -3,6 +3,7 @@ var fs = require('fs');
 var url = require('url');
 var qs = require('querystring');
 var template = require('./lib/template.js');
+var path = require('path');
 
 var app = http.createServer((request, response) => {
     var _url = request.url;
@@ -22,9 +23,10 @@ var app = http.createServer((request, response) => {
             });
         } else {
             fs.readdir('./data', (err, filelist) => {
-                var list = template.HTML(filelist);
-
-                fs.readFile(`data/${queryData.id}`, 'utf8', (error, description) => {
+                var filteredId = path.parse(queryData.id).base;
+                
+                fs.readFile(`data/${filteredId}`, 'utf8', (error, description) => {
+                    var list = template.HTML(filelist);
                     var title = queryData.id;
                     var html = template.HTML(title, list, '<p>' + description + '</p>', `<a href="/create">create</a> <a href="/update?id=${title}">update</a>
                     <form action="/delete_process" method="post">
@@ -70,7 +72,9 @@ var app = http.createServer((request, response) => {
         });
     } else if (pathname === '/update') {
         fs.readdir('./data', (err, filelist) => {
-            fs.readFile(`data/${queryData.id}`, 'utf8', (error, description) => {
+            var filteredId = path.parse(queryData.id).base;
+
+            fs.readFile(`data/${filteredId}`, 'utf8', (error, description) => {
                 var title = queryData.id;
                 var list = template.HTML(filelist);
                 var update = `
@@ -122,8 +126,9 @@ var app = http.createServer((request, response) => {
         request.on('end', () => {
             var post = qs.parse(body);
             var id = post.id;
+            var filteredId = path.parse(id).base;
 
-            fs.unlink(`data/${id}`, (err) => {
+            fs.unlink(`data/${filteredId}`, (err) => {
                 response.writeHead(302, {Location: '/'});
                 response.end();
             });
