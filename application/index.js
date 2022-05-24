@@ -32,7 +32,7 @@ var app = http.createServer((request, response) => {
                     var sanitizeedDescription = sanitizeHtml(description, {
                         allowedTags: ['h1']
                     });
-                    var list = template.HTML(filelist);
+                    var list = template.list(filelist);
                     var html = template.HTML(sanitizedTitle, list, '<p>' + sanitizeedDescription + '</p>', `<a href="/create">create</a> <a href="/update?id=${sanitizedTitle}">update</a>
                     <form action="/delete_process" method="post">
                         <input type="hidden" name="id" value="${title}">
@@ -47,7 +47,7 @@ var app = http.createServer((request, response) => {
     } else if (pathname === '/create') {
         fs.readdir('./data', (err, filelist) => {
             var title = 'WEB - create';
-            var list = template.HTML(filelist);
+            var list = template.list(filelist);
             var description = fs.readFileSync('create.html', 'utf8');
             var html = template.HTML(title, list, description, '');
 
@@ -81,7 +81,7 @@ var app = http.createServer((request, response) => {
 
             fs.readFile(`data/${filteredId}`, 'utf8', (error, description) => {
                 var title = queryData.id;
-                var list = template.HTML(filelist);
+                var list = template.list(filelist);
                 var update = `
                 <form action="/update_process" method="post">
                     <input type="hidden" name="id" value="${title}">
